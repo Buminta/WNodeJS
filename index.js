@@ -22,7 +22,7 @@ var app = express();
 
 var port = configs.listen_port;
 var fs = require('fs');
-function include(file_) {
+function include(file_, vars) {
 	with (global) {
 		eval(fs.readFileSync(file_) + '');
 	};
@@ -153,11 +153,16 @@ function parseSession(handshake, callback){
 	});
 }
 
+function getModel(name){
+	var tmp = require(__dirname + "/models/"+name+".js");
+	return new tmp(db);
+}
+
 if(configs.socket_path){
 	io.sockets.on('connection', function (socket) {
 		var hs = socket.handshake;
 		parseSession(hs, function(session){
-			include(__dirname+configs.socket_path);
+			include(__dirname+configs.socket_path, {socket: socket, session: session});
 		});
 	});
 }
