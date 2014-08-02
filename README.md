@@ -1,4 +1,4 @@
-MVC Framework for ExpressJS
+## MVC Framework for ExpressJS
 ``` javascript
 //configs.js
 module.exports = {
@@ -17,11 +17,11 @@ module.exports = {
 	// var global for using: socket, session
 }
 ```
-## Using socket when u need
+Using socket when u need
 
 Package using from fw
 ``` javascript
-\\package.json
+//package.json
 {
   "name": "WNodeJS",
   "description": "MVC Framework for ExpressJS",
@@ -46,10 +46,10 @@ Package using from fw
 }
 ```
 
-## - public folder for using somes file using in client
-## - views folder for jade language of template application
-## - models folder for class in out with database
-## - controllers folder for class control request and responsive
+ - public folder for using somes file using in client
+ - views folder for jade language of template application
+ - models folder for class in out with database
+ - controllers folder for class control request and responsive
 
 ``` javascript
 // controllers/demo.js
