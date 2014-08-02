@@ -1,0 +1,16 @@
+extends main
+
+block header
+	
+
+block content
+	div(class='center-block thumbnail box-login')
+		span(class='label label-info') Login
+		form(class='center-block form', method='POST')
+			input(class='form-control', placeholder='Username', name='username')
+			input(class='form-control', placeholder='Password', name='password', type='password')
+			div(style='text-align: right;')
+				a(class='btn btn-default' href='/register') Register
+				input(class='btn btn-info', type='submit')
+		if(error)
+			span(class='label label-warning center-block') #{error}

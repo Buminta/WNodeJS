@@ -1,0 +1,159 @@
+.notification{
+    z-index: 99;
+    position: fixed;
+    top: 55px;
+    line-height: 20px;
+    right: 10px;
+    border-radius: 5px;
+    background: #393939;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-animation-name: bounce;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-duration: 1000ms;
+    -moz-animation-name: bounce;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-duration: 1000ms;
+    animation-name: bounce;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1000ms;
+}
+@-webkit-keyframes bounce{
+    0%{
+        -webkit-transform: translate3d(0px,-200px,0px);
+    }
+    25%{
+        -webkit-transform: translate3d(0px,-20px,0px);
+    }
+    40%{
+        -webkit-transform: translate3d(0px,0px,0px);
+    }
+    55%{
+        -webkit-transform: translate3d(0px,-10px,0px);
+    }
+    70%{
+        -webkit-transform: translate3d(0px,0px,0px);
+    }
+    85%{
+        -webkit-transform: translate3d(0px,-5px,0px);
+    }
+    100%{
+        -webkit-transform: translate3d(0px,0px,0px);
+    }
+}
+@-moz-keyframes bounce{
+    0%{
+        -moz-transform: translate3d(0px,-200px,0px);
+    }
+    25%{
+        -moz-transform: translate3d(0px,-20px,0px);
+    }
+    40%{
+        -moz-transform: translate3d(0px,0px,0px);
+    }
+    55%{
+        -moz-transform: translate3d(0px,-10px,0px);
+    }
+    70%{
+        -moz-transform: translate3d(0px,0px,0px);
+    }
+    85%{
+        -moz-transform: translate3d(0px,-5px,0px);
+    }
+    100%{
+        -moz-transform: translate3d(0px,0px,0px);
+    }
+}
+@keyframes bounce{
+    0%{
+        transform: translate3d(0px,-200px,0px);
+    }
+    25%{
+        transform: translate3d(0px,-20px,0px);
+    }
+    40%{
+        transform: translate3d(0px,0px,0px);
+    }
+    55%{
+        transform: translate3d(0px,-10px,0px);
+    }
+    70%{
+        transform: translate3d(0px,0px,0px);
+    }
+    85%{
+        transform: translate3d(0px,-5px,0px);
+    }
+    100%{
+        transform: translate3d(0px,0px,0px);
+    }
+}
+.notification .close{
+    float: right;
+    margin-left: 20px;
+    margin-right: 0px;
+    margin-top: 2px;
+    font-size: 10px;
+}
+.notification:hover{
+    opacity: 0.5;
+}
+
+.box-login{
+    margin-top: 200px; width: 400px; min-height: 200px;
+}
+
+.box-login input{
+    margin-top: 10px;
+}
+
+.box-login a{
+    margin-top: 10px; margin-right: 10px;
+}
+
+.box-login .form{
+    margin-top: 20px; width: 80%; margin-bottom: 20px;
+}
+.box-login .error-head{
+    text-align: center; color: red; margin: 20px auto; font-size: 50px;
+}
+
+.box-chat{
+    margin-top: 50px; width: 80%; height: 500px; text-align: center;
+}
+.box-chat .room{
+    width: 70%; height: 400px; display: inline-block; vertical-align: top;
+}
+.box-chat .room .form-control{
+    height: 100%; text-align: left; overflow: scroll;
+}
+.box-chat .content{
+    width: 20%; height: 400px; display: inline-block; vertical-align: top;
+}
+.box-chat .content .listroom{
+    height: 80%; overflow: scroll; text-align: left;
+}
+.box-chat .content .btn-addrom{
+    height: 15%; margin-top: 10px; width: 100%;
+}
+.box-chat .msg-content{
+    width: 90%; display: inline-block;
+}
+.box-chat .msg-content .list{
+    width: 66%; height: 80px; vertical-align: top; display: inline-block;
+}
+.box-chat .msg-content .control-bar{
+    display: inline-block; width: 15%; height: 80px; vertical-align: top; margin: 0 10px;
+}
+.box-chat .msg-content .control-bar select{
+    margin-top: 5px; width: 100px; height: 48%; display: inline-block;
+}
+.box-chat .msg-content .control-bar select:first-child{
+    margin-top: 0;
+}
+.box-chat .msg-content .btn{
+    width: 15%; height: 80px; vertical-align: top;
+}

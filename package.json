@@ -1,0 +1,22 @@
+{
+  "name": "WNodeJS",
+  "description": "MVC Framework for ExpressJS",
+  "version": "1.0.0",
+  "author": "Tan Bui (http://buminta.com)",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/buminta/wnode.git"
+  },
+  "dependencies": {
+    "express": "3.x",
+    "MD5": "latest",
+    "socket.io": "latest",
+    "jade": "latest",
+    "connect": "latest",
+    "mongodb": "latest"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.4.x"
+  }
+}
