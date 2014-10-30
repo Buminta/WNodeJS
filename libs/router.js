@@ -1,5 +1,21 @@
 Router = {
 	init: function(){
+		var listApp = fs.readdirSync("app");
+		for(var i in listApp){
+			try {
+				var stats = fs.lstatSync('app/'+listApp[i]);
+				if (stats.isDirectory()) {
+					var confs = require('./app/'+listApp[i]+"/init.js");
+					if(confs.staticFolder){
+						app.use("/"+listApp[i], express.static(__dirname+"/app/"+listApp[i]+"/"+confs.staticFolder))
+						console.log("Using static folder: /app/"+listApp[i]+"/"+confs.staticFolder);
+					}
+				}
+			}
+			catch (e) {
+				console.log(e);
+			}
+		}
 
 	},
 	run: function(req, res){

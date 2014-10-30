@@ -28,12 +28,13 @@ include(__dirname + '/libs/controller.js');
 include(__dirname + '/libs/model.js');
 include(__dirname + '/libs/router.js');
 
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
 app.use(express.bodyParser());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 app.configure(function () {
 	app.use(express.cookieParser());
 	app.use(express.session({store: store, secret: SECRET, key: KEY}));
 });
+Router.init();
 app.use(function(req,res,next){
 	// console.log(req.url);
 	Router.run(req, res);

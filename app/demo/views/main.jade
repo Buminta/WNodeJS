@@ -2,15 +2,15 @@ doctype html
 html(lang="en")
 	head
 		title= title
-		script(src='/js/jquery.js')
-		link(href='/css/bootstrap.min.css', rel="stylesheet")
-		link(href='/css/bootstrap-theme.min.css', rel="stylesheet")
-		link(href='/css/style.css', rel="stylesheet")
-		script(src='/js/bootstrap.min.js')
-		script(src='/js/bootstrap-select.min.js')
-		script(src='/js/jquery.tablesorter.js')
-		script(src='/js/jquery.tablesorter.pager.js')
-		script(src='/js/jquery.tablesorter.widgets.js')
+		script(src='/#{request.params.application}/js/jquery.js')
+		link(href='/#{request.params.application}/css/bootstrap.min.css', rel="stylesheet")
+		link(href='/#{request.params.application}/css/bootstrap-theme.min.css', rel="stylesheet")
+		link(href='/#{request.params.application}/css/style.css', rel="stylesheet")
+		script(src='/#{request.params.application}/js/bootstrap.min.js')
+		script(src='/#{request.params.application}/js/bootstrap-select.min.js')
+		script(src='/#{request.params.application}/js/jquery.tablesorter.js')
+		script(src='/#{request.params.application}/js/jquery.tablesorter.pager.js')
+		script(src='/#{request.params.application}/js/jquery.tablesorter.widgets.js')
 		
 		block header
 	body(style="background: #ccc;")
@@ -51,4 +51,4 @@ html(lang="en")
 			div(id="NotificationJS", style="display: none;")
 		block content
 
-	script(src='/js/notification.js')
+	script(src='/#{request.params.application}/js/notification.js')
