@@ -10,11 +10,8 @@ Controller = Class.extend({
 		this.run();
 		this[action]();
 	},
-	render: function(template, configs){
-		return this.res.render(template, configs);
-	},
 	newDB: function(name){
-		var model = require(__dirname + "/models/" + name +".js");
-		return new model(this.req.db);
+		var model = require(__dirname + "/app/"+this.req.params.application+"/models/" + name +".js");
+		return new model();
 	}
-});
+}).implement(ViewInterface);

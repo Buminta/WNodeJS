@@ -1,0 +1,54 @@
+doctype html
+html(lang="en")
+	head
+		title= title
+		script(src='/js/jquery.js')
+		link(href='/css/bootstrap.min.css', rel="stylesheet")
+		link(href='/css/bootstrap-theme.min.css', rel="stylesheet")
+		link(href='/css/style.css', rel="stylesheet")
+		script(src='/js/bootstrap.min.js')
+		script(src='/js/bootstrap-select.min.js')
+		script(src='/js/jquery.tablesorter.js')
+		script(src='/js/jquery.tablesorter.pager.js')
+		script(src='/js/jquery.tablesorter.widgets.js')
+		
+		block header
+	body(style="background: #ccc;")
+		nav(class='navbar navbar-default', role='navigation')
+			.navbar-header
+				a(href="/", class="navbar-brand") Home
+			div(class='container-fluid')
+				div(class="collapse navbar-collapse")
+					ul(class='nav navbar-nav')
+						if(request && session.menu)
+							- for(var i in session.menu)
+								li(class="dropdown")
+									a(href="#" class="dropdown-toggle" data-toggle="dropdown") #{session.menu[i].name}
+										.caret
+									ul(class="dropdown-menu", role="menu")
+										- for(var item in session.menu[i].action)
+											li
+												a(href='/#{session.menu[i].action[item].controller}/#{session.menu[i].action[item].action}') #{session.menu[i].action[item].name}
+					ul(class='nav navbar-nav navbar-right')
+						li(class="dropdown")
+							a(href="#" class="dropdown-toggle" data-toggle="dropdown") Control
+								.caret
+							ul(class="dropdown-menu", role="menu")
+								if(request && session.user_id)
+									li
+										a(href='/logout') Logout
+								else
+									li
+										a(href='/') login
+							
+		if(request && session.notification)
+			div(id="NotificationJS")
+				.notification #{session.notification}
+					.close x
+			- session.notification = false;
+
+		else
+			div(id="NotificationJS", style="display: none;")
+		block content
+
+	script(src='/js/notification.js')

@@ -1,0 +1,104 @@
+extends main
+
+block header
+	
+block content
+	div(class='center-block thumbnail')
+		if (control == "index")
+			.center-block.text-left()
+				a(href='/#{request.params.application}/#{request.params.controller}/add/#{request.args[0]}')
+					.btn.btn-default Add
+			div(style='margin: 10px auto;')
+				table.table.table-bordered.tablesorter
+					thead
+						tr
+							th ID
+							- for(var name in config)
+								if(config[name].label)
+									th(style="max-width: 200px;") #{config[name].label}
+							th(style="max-width: 200px;") Control
+					tbody
+						- for(var obj in data)
+							tr
+								td #{data[obj]._id}
+								- for(var name in config)
+									if(config[name].label)
+										td(style="word-wrap: break-word; max-width: 200px;") #{data[obj][name]}
+								td
+									a(href="/#{request.params.application}/#{request.params.controller}/edit/#{request.args[0]}/?id=#{data[obj]._id}")
+										span(class="btn btn-default") edit
+									a(href="javascript:confirm_r('/#{request.params.application}/#{request.params.controller}/delete/#{request.args[0]}/?id=#{data[obj]._id}', 'You want to delete?')")
+										span(class="btn btn-default") delete
+
+				#pager.pager
+					form
+						span.first.glyphicon.glyphicon-fast-backward(style='cursor: pointer;')
+						span.prev.glyphicon.glyphicon-backward(style='cursor: pointer;')
+						input.pagedisplay.form-control(type='text', style='display: inline-block; width: 200px;')
+						span.next.glyphicon.glyphicon-forward(style='cursor: pointer;')
+						span.last.glyphicon.glyphicon-fast-forward(style='cursor: pointer;')
+						select.pagesize.form-control(style='display: inline-block; width: 50px; padding: 5px 5px;')
+							option(value='20') 20
+							option(value='50') 50
+							option(value='100') 100
+							option(value='200') 200
+		if (control == "edit" || control == "add")
+			a(href="/#{request.params.application}/#{request.params.controller}/index/#{request.args[0]}", class="center-block text-right btn btn-default") Back
+			form(class="form-horizontal", role="form" method="post", style="width: 50%; margin: 10px auto;")
+				- for(var name in config)
+					if(!config[name].hiden)
+						.form-group
+							label(class="col-sm-2 control-label") #{name}
+							.col-sm-10
+								input(class="form-control", name="#{name}", value="#{data?(data[name]?data[name]:''):(config[name].required?(config[name].default!=undefined?(typeof(config[name].default)=='function'?config[name].default():config[name].default):''):'')}")
+				.form-group
+					.col-sm-offset-2.col-sm-10
+						button(class="btn btn-default", type="submit") Submit
+
+
+	script().
+		function confirm_r(link, mes){
+			if(confirm(mes)){
+				window.location.href = link;
+			}
+		}
+		$(document).ready(function(){
+			var input = $(".form-control");
+			for(var i=0; i< input.length; i++){
+				var type = "text";
+				try{
+					if($(input[i]).attr('typeValue').toUpperCase() == "DATETIME") $(input[i]).datetimepicker({
+						lang: 'en',
+						timepicker: true,
+						format: 'Y-m-d H:i:s'
+					});
+					if($(input[i]).attr('typeValue').toUpperCase() == "DATE") $(input[i]).datetimepicker({
+						lang: 'en',
+						timepicker: false,
+						format: 'Y-m-d'
+					});
+				}
+				catch(e){
+					//
+				}
+			}
+		});
+		$(".selectpicker").selectpicker();
+		$(".tablesorter").tablesorter({
+			widgets: ["zebra", "filter", "resizable"],
+			widgetOptions: {
+				resizable_addLastColumn: true,
+				filter_cssFilter: '',
+				filter_childRows: false,
+				filter_ignoreCase: true,
+				filter_reset: '.reset',
+				filter_searchDelay: 300,
+				filter_startsWith: false,
+				filter_hideFilters: false,
+				filter_functions: {
+				}
+			}
+		}).tablesorterPager({
+				container: $("#pager"),
+				size: 20
+			});

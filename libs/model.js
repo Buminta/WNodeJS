@@ -1,8 +1,18 @@
+var Mongoose = require(__dirname + "/libs/database.js");
+
 Model = Class.extend({
-	init: function(db){
-		this.db = db;
+	config: {},
+	colection: null,
+	init: function(){
+		this.data = this.getData();
 	},
 	getData: function(){
-		return this.db.collection(this.collection);
+		try{
+			return Mongoose.model(this.collection);	
+		}
+		catch(e){
+			
+		}
+		return Mongoose.model(this.collection, new Mongoose.Schema(this.config));
 	}
 });

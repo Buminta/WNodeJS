@@ -1,50 +1,29 @@
 Auth = Class.extend({
-	init: function(req, res){
-		this.db = req.db;
-		this.req = req;
-		this.res = res;
+	hashCode: function(username, password){
+		var sha = require("sha1");
+		return sha(username+password);
 	},
-	permission: function(controller, action, callback){
-		var _self = this;
-		if(!this.req.session.loginID) return this.res.redirect("/login?goback=/"+this.req.params.controller+"/"+(this.req.params.action?this.req.params.action:""));
-		return this.getPermission(controller, action, function(results){
-			return callback(results);
+	getMenu: function(user_id){
+
+	},
+	getAllMenu: function(callback){
+		var cat = this.newDB("auth_menu_categories");
+		var act = this.newDB("auth_menu_action");
+		var list = [];
+		cat.data.find({}, function(err, cat_list){
+			if(err || cat_list.length == 0) return callback(list);
+			loopGetAction(cat_list, 0);
 		});
-	},
-	getPermission: function(controller, action, callback){
-		var _self = this;
-		var tmp = require(__dirname + "/models/membership.js");
-		var membershipModel = new tmp(this.db);
-		var tmp = require(__dirname + "/models/permissions.js");
-		var permissionModel = new tmp(this.db);
-		return membershipModel.findMembership(this.req.session.loginID, function(groups){
-			if(groups[0]){
-				var group = groups[0];
-				return permissionModel.checkPermission(group.group_id, {controller: controller, action: action}, function(results){
-					return callback(results);
+
+		function loopGetAction(cat_list, i){
+			if(i == cat_list.length) return callback(list);
+			act.data.find({menu_id: cat_list[i]._id}, function(err, act_list){
+				if(!err) list.push({
+					name: cat_list[i].name,
+					action: act_list
 				});
-			}
-			else{
-				return callback(false);
-			}
-		});
-	},
-	listPermisstion: function(callback){
-		var _self = this;
-		var tmp = require(__dirname + "/models/membership.js");
-		var membershipModel = new tmp(this.db);
-		var tmp = require(__dirname + "/models/permissions.js");
-		var permissionModel = new tmp(this.db);
-		return membershipModel.findMembership(this.req.session.loginID, function(groups){
-			if(groups[0]){
-				var group = groups[0];
-				return permissionModel.findPermission(group.group_id, function(results){
-					return callback(results);
-				});
-			}
-			else{
-				return callback(false);
-			}
-		});
+				loopGetAction(cat_list, i+1);
+			});
+		}
 	}
-});
+}).implement(ViewInterface);

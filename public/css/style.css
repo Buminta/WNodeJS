@@ -120,6 +120,9 @@
 .box-login .error-head{
     text-align: center; color: red; margin: 20px auto; font-size: 50px;
 }
+.box-login .error-mes{
+    text-align: center; color: orange; margin: 10px auto; font-size: 20px;
+}
 
 .box-chat{
     margin-top: 50px; width: 80%; height: 500px; text-align: center;

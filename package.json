@@ -9,14 +9,23 @@
   },
   "dependencies": {
     "express": "3.x",
-    "MD5": "latest",
+    "sha1": "latest",
     "socket.io": "latest",
     "jade": "latest",
     "connect": "latest",
-    "mongodb": "latest"
+    "mongodb": "latest",
+    "xls-to-json": "latest",
+    "mongoose": "^3.8.16",
+    "multiparty": "latest",
+    "nodemon": "latest",
+    "object-to-xml": "latest"
   },
   "engines": {
     "node": "0.10.x",
     "npm": "1.4.x"
+  },
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "mocha test/*"
   }
 }
