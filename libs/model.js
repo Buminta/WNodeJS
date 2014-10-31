@@ -1,4 +1,4 @@
-var Mongoose = require(__dirname + "/libs/database.js");
+var Mongoose = require(__dirname + "/database");
 
 Model = Class.extend({
 	config: {},

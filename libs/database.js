@@ -1,8 +1,7 @@
 var Mongoose = require('mongoose')
-var Config = require('../configs')
-
+var router = require(__dirname + '/router');
 // simple
-Mongoose.connect('mongodb://' + Config.database.host + '/' + Config.database.name)
+Mongoose.connect('mongodb://' + router['configs'].database.host + '/' + router['configs'].database.name)
 
 var db = Mongoose.connection
 db.on('error', console.error.bind(console, 'Connection error'))

@@ -1,3 +1,4 @@
+var router = require(__dirname + '/router');
 Controller = Class.extend({
 	init: function(req, res){
 		this.res = res;
@@ -11,7 +12,6 @@ Controller = Class.extend({
 		this[action]();
 	},
 	newDB: function(name){
-		var model = require(__dirname + "/app/"+this.req.params.application+"/models/" + name +".js");
-		return new model();
+		return router.getModel(this.req.params.application, name);
 	}
 }).implement(ViewInterface);

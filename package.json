@@ -1,19 +1,17 @@
 {
   "name": "WNodeJS",
-  "description": "MVC Framework for ExpressJS",
-  "version": "1.0.0",
+  "description": "MVC Framework for NodeJS",
+  "version": "2.0.0",
   "author": "Tan Bui (http://buminta.com)",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/buminta/wnode.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buminta/wnodejs.git"
   },
   "dependencies": {
     "express": "3.x",
     "sha1": "latest",
     "socket.io": "latest",
     "jade": "latest",
-    "connect": "latest",
-    "mongodb": "latest",
     "xls-to-json": "latest",
     "mongoose": "^3.8.16",
     "multiparty": "latest",
@@ -24,8 +22,19 @@
     "node": "0.10.x",
     "npm": "1.4.x"
   },
-  "scripts": {
-    "start": "nodemon index.js",
-    "test": "mocha test/*"
-  }
+  "bugs": {
+    "url": "https://github.com/buminta/wnodejs/issues"
+  },
+  "homepage": "https://github.com/buminta/wnodejs",
+  "main": "index.js",
+  "keywords": [
+    "Node",
+    "JS",
+    "MVC",
+    "Framework",
+    "API",
+    "Socket",
+    "Realtime"
+  ],
+  "license": "BSD 2-Clause"
 }

@@ -1,4 +1,5 @@
-jade = require("jade");
+var jade = require("jade");
+var router = require(__dirname + "/router");
 ViewInterface = Class.extend({
 	req: null,
 	res: null,
@@ -22,7 +23,7 @@ ViewInterface = Class.extend({
 		configs.response = this.res;
 		configs.title = configs.title?configs.title:("WNodeJS/"+this.req.params.application+" - "+this.req.params.controller+" - "+this.req.params.action);
 		try{
-			return this.res.send(jade.renderFile(__dirname+"/app/"+this.req.params.application+"/views/"+template+".jade", configs));
+			return this.res.send(jade.renderFile(router['root_path']+"/app/"+this.req.params.application+"/views/"+template+".jade", configs));
 		}
 		catch(err){
 			if(this.debug){
