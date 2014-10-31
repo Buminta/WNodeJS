@@ -16,6 +16,7 @@ Documents: https://github.com/Buminta/WNodeJS/wiki
   - Supporter Interface for Controller to render view.
   - Supporter require mores Object for using
   - Supporter extends, implement, interface method for Class.
+  - Manager session
 
 ### Install
 ```
