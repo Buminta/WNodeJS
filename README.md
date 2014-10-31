@@ -23,7 +23,7 @@ npm install wnodejs
  ```
 
  - File index.js
-``` javascript
+ ``` javascript
 
   //config port, using socket, mongodb
   var configs = require(__dirname+"/configs.js");
@@ -37,11 +37,11 @@ npm install wnodejs
 
   //Start run app
   wnodejs.init();
-```
+ ```
 
  - Default configs.js file
 
-``` javascript
+ ``` javascript
   module.exports = {
     listen_port: 3000,
     defaultApp: "demo",
@@ -58,41 +58,41 @@ npm install wnodejs
     // socket_path: "/socket_app.js" // If dose'nt using u can comment line here
     // var global for using: socket, session
   }
-```
+ ```
 
  - All application inside ```app``` folder
-```
-app
-├── api
-│   ├── controllers
-│   │   └── ... //home.js
-│   ├── init.js
-│   └── models
-└── demo
-    ├── controllers
-    │   ├── ... //home.js
-    ├── init.js
-    ├── models
-    │   └── ... //auth_users.js
-    ├── modules
-    │   └── ...
-    ├── static
-    │   ├── css
-    │   │   ├── ...
-    │   ├── ...
-    │   └── js
-    │       ├── ...
-    └── views
-        ├── ...
-```
+ ```
+  app
+  ├── api
+  │   ├── controllers
+  │   │   └── ... //home.js
+  │   ├── init.js
+  │   └── models
+  └── demo
+      ├── controllers
+      │   ├── ... //home.js
+      ├── init.js
+      ├── models
+      │   └── ... //auth_users.js
+      ├── modules
+      │   └── ...
+      ├── static
+      │   ├── css
+      │   │   ├── ...
+      │   ├── ...
+      │   └── js
+      │       ├── ...
+      └── views
+          ├── ...
+ ```
 
- -- init.js file for configs app
+ - init.js file for configs app
 
-``` javascript
-module.exports = {
-  defaultController: "home",
-  defaultAction: "index",
-  staticFolder: "static",
-  debug: true,
-}
-```
+ ``` javascript
+  module.exports = {
+    defaultController: "home",
+    defaultAction: "index",
+    staticFolder: "static",
+    debug: true,
+  }
+ ```
