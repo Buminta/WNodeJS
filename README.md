@@ -21,7 +21,7 @@ Documents: https://github.com/Buminta/WNodeJS/wiki
 npm install wnodejs
 ```
 
-#### Version 2.0.0 -> latest
+#### Version 2.0.x -> latest
 
  - File package.json config
 

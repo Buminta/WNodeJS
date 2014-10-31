@@ -1,7 +1,7 @@
 {
   "name": "wnodejs",
   "description": "MVC Framework for NodeJS",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Tan Bui (http://buminta.com)",
   "repository": {
     "type": "git",
