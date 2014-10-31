@@ -15,7 +15,6 @@
     "xls-to-json": "latest",
     "mongoose": "^3.8.16",
     "multiparty": "latest",
-    "nodemon": "latest",
     "object-to-xml": "latest"
   },
   "engines": {

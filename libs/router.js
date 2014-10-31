@@ -20,7 +20,7 @@ module.exports = {
 			eval(fs.readFileSync(file_) + '');
 		};
 	},
-	init: function(configs){
+	init: function(){
 		var _self = this;
 		var express = require("express");
 		var fs = require('fs');
@@ -71,9 +71,12 @@ module.exports = {
 			_self.run(req, res);
 		});
 
-
-		this.io = require('socket.io').listen(app.listen(this['configs'].listen_port));
-
+		try{
+			this.io = require('socket.io').listen(app.listen(this['configs'].listen_port));
+		}
+		catch(e){
+			console.log("Error listen: "+this['configs'].listen_port+" is used!")
+		}
 		if(this['configs'].socket_path){
 			this.io.sockets.on('connection', function (socket) {
 				var hs = socket.handshake;

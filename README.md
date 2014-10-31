@@ -1,5 +1,20 @@
 ## MVC Framework for NodeJS
-Demo source: git@github.com:Buminta/wnodejs-demo.git(git@github.com:Buminta/wnodejs-demo.git)
+Demo source: https://github.com/Buminta/wnodejs-demo
+Documents: https://github.com/Buminta/WNodeJS/wiki
+
+#### What's WNodeJS?
+- It's MVC Framwork for nodejs
+- It's Using: ExpressJS, Socket.IO, Jade, Mongooese,...
+- It's supports:
+  - Create multi application
+  - Manager and render View
+  - Manager and config Model
+  - Create Controller and Action inside controller
+  - Manager and process params, args from url
+  - Open socket.io
+  - Supporter Interface for Controller to render view.
+  - Supporter require mores Object for using
+  - Supporter extends, implement, interface method for Class.
 
 ### Install
 ```
