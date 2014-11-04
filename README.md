@@ -1,6 +1,5 @@
 ## MVC Framework for NodeJS
 Demo source: https://github.com/Buminta/wnodejs-demo
-
 Documents: https://github.com/Buminta/WNodeJS/wiki
 
 #### What's WNodeJS?
@@ -16,7 +15,6 @@ Documents: https://github.com/Buminta/WNodeJS/wiki
   - Supporter Interface for Controller to render view.
   - Supporter require mores Object for using
   - Supporter extends, implement, interface method for Class.
-  - Manager session
 
 ### Install
 ```

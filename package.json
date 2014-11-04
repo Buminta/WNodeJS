@@ -1,8 +1,11 @@
 {
   "name": "wnodejs",
   "description": "MVC Framework for NodeJS",
-  "version": "2.0.1",
-  "author": "Tan Bui (http://buminta.com)",
+  "version": "2.0.2",
+  "author": {
+    "name": "Tan Bui",
+    "url": "http://buminta.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/buminta/wnodejs.git"
@@ -15,7 +18,8 @@
     "xls-to-json": "latest",
     "mongoose": "^3.8.16",
     "multiparty": "latest",
-    "object-to-xml": "latest"
+    "object-to-xml": "latest",
+    "colors": "latest"
   },
   "engines": {
     "node": "0.10.x",
@@ -35,5 +39,6 @@
     "Socket",
     "Realtime"
   ],
-  "license": "BSD 2-Clause"
+  "license": "BSD 2-Clause",
+  "scripts": {}
 }

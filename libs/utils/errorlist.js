@@ -7,4 +7,13 @@
  * Github: https://github.io/buminta
  */
 
-module.exports = require("./libs/router");
+module.exports = {
+	http_request:{
+		"404": "Page not found",
+		"500": "Is not valid",
+		"70": "Permission denied"
+	},
+	system: {
+		"ENOENT": "Can't read file"
+	}
+}

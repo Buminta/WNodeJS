@@ -1,11 +1,33 @@
+/*
+ * wnodejs
+ * Copyright (c) 2014 Tan Bui, contributors
+ * Licensed under the BSD 2-Clause license.
+ * 
+ * Site: http://buminta.com
+ * Github: https://github.io/buminta
+ */
+
+/*
+ * Using with default database system framework configs
+ */
+
 Auth = Class.extend({
+	/*
+	 * hascode password for username with sha1
+	 */
 	hashCode: function(username, password){
 		var sha = require("sha1");
 		return sha(username+password);
 	},
+	/*
+	 * return tree menu follow user permission from auth default database system
+	 */
 	getMenu: function(user_id){
-
+		//writing...
 	},
+	/*
+	 * return tree menu from auth default database system
+	 */
 	getAllMenu: function(callback){
 		var cat = this.newDB("auth_menu_categories");
 		var act = this.newDB("auth_menu_action");

@@ -1,4 +1,13 @@
-//Basic Class for all Object in Wind Framework
+/*
+ * wnodejs
+ * Copyright (c) 2014 Tan Bui, contributors
+ * Licensed under the BSD 2-Clause license.
+ * 
+ * Site: http://buminta.com
+ * Github: https://github.io/buminta
+ */
+
+//Basic Class Opensource for all Object in Framework
 
 (function() {
 	var initializing = false, fnTest = /xyz/.test(function() { xyz;

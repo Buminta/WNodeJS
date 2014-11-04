@@ -1,26 +1,84 @@
+/*
+ * wnodejs
+ * Copyright (c) 2014 Tan Bui, contributors
+ * Licensed under the BSD 2-Clause license.
+ * 
+ * Site: http://buminta.com
+ * Github: https://github.io/buminta
+ */
+
+/*
+ * Module router using expressjs for start listening application.
+ * Router import configs params for port listener of application and socket.io and configs database with mongodb/mongooese.
+ * Router run include all lib for controller, model, view from init method.
+ * Router listener port of application for socket.io and read configs params for listen connect with client
+ */
+var Log  = require(__dirname+"/utils/log");
+
 module.exports = {
-	configs: {
-		database: {
-			host: "localhost",
-			name: ""
-		},
-		sercurity: {
-			key: "express.sid",
-			secret: "1234567890QWERTY"
-		},
-		listen_port: 3000
-	},
-	root_path: "/",
+	// configs: {
+	// 	database: {
+	// 		host: "localhost",
+	// 		name: ""
+	// 	},
+	// 	sercurity: {
+	// 		key: "express.sid",
+	// 		secret: "1234567890QWERTY"
+	// 	},
+	// 	listen_port: 3000
+	// },
+	// root_path: "/",
+	/*
+	 * use method do setting valid for root path of application and configs param for using from application
+	 */
 	use: function(name, configs){
+		// name is ['configs', 'root_path']
 		this[name] = configs;
 	},
+	/*
+	 * include method do include file in local to global and eval from string to like javascript code
+	 * using vars for params value, object or callback do using in include file
+	 */
 	include: function(file_, vars) {
 		var fs = require('fs');
 		with (global) {
 			eval(fs.readFileSync(file_) + '');
 		};
 	},
+	/*
+	 * init method do include and settings some configs,
+	 * run application express.js, check application configs and manager params url
+	 */
 	init: function(){
+		if(!this['configs']){
+			return Log.error("ERROR", "Application need configs for start.\n\t\tExample: wnodejs.user('configs', {})\
+				\n\t\tConfig_example = {\n\
+				database: {\n\
+					host: 'localhost',\n\
+					name: 'demo',\n\
+					user: 'demo',\n\
+					pass: 'demo',\n\
+				},\n\
+				sercurity: {\n\
+					key: 'express.sid',\n\
+					secret: '1234567890QWERTY'\n\
+				},\n\
+				listen_port: 3000\n\
+			}", "red");
+		}
+		if(!this['root_path']) {
+			return Log.error("ERROR", "Application need root_path for start.\n\t\tExample: wnodejs.user('root_path', __dirname)", "red");
+		}
+		if(this['configs'].database.host === undefined || this['configs'].database.name === undefined || this['configs'].database.user === undefined || this['configs'].database.pass === undefined) {
+			return Log.error("ERROR", "Application need configs all value configs of database for start.\n\t\tExample: database: {\n\
+				host: 'localhost',\n\
+				name: 'demo',\n\
+				user: 'demo',\n\
+				pass: 'demo',\n\
+			}", "red");
+		}
+
+
 		var _self = this;
 		var express = require("express");
 		var fs = require('fs');
@@ -34,6 +92,7 @@ module.exports = {
 
 		var app = express();
 
+		// Create one global ObjectId for using ref in config models.
 		ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 		this.include(__dirname+'/class.js');
@@ -58,12 +117,12 @@ module.exports = {
 					var confs = require(this['root_path']+'/app/'+listApp[i]+"/init.js");
 					if(confs.staticFolder){
 						app.use("/"+listApp[i], express.static(this['root_path']+"/app/"+listApp[i]+"/"+confs.staticFolder))
-						console.log("Using static folder: /app/"+listApp[i]+"/"+confs.staticFolder);
+						Log.show("Using static folder: /app/"+listApp[i]+"/"+confs.staticFolder, "grey");
 					}
 				}
 			}
 			catch (e) {
-				console.log(e);
+				Log.show(e.message, "red");
 			}
 		}
 
@@ -72,12 +131,13 @@ module.exports = {
 		});
 
 		try{
-			this.io = require('socket.io').listen(app.listen(this['configs'].listen_port));
+			this.io = require('socket.io').listen(app.listen(this['configs'].listen_port?this['configs'].listen_port:3000));
 		}
 		catch(e){
-			console.log("Error listen: "+this['configs'].listen_port+" is used!")
+			Log.show("Error listen: "+this['configs'].listen_port+" is used!", 'red')
 		}
 		if(this['configs'].socket_path){
+			// check configs socket file path to include it and using when socket.io connect form client
 			this.io.sockets.on('connection', function (socket) {
 				var hs = socket.handshake;
 				_self.parseSession(hs, function(session){
@@ -86,6 +146,9 @@ module.exports = {
 			});
 		}
 	},
+	/*
+	 * authorization with had session for socket.io, it run before socket.io accept connect from client
+	 */
 	sessionSocketAuthorization: function(){
 		var _self = this;
 		this.io.set('authorization', function(handshake, callback) {
@@ -103,6 +166,18 @@ module.exports = {
 			}
 		});
 	},
+	/*
+	 * set custom authorization for socket.io, it run before socket.io accept connect from client
+	 */
+	setSocketAuthorization: function(callback_out){
+		var _self = this;
+		this.io.set('authorization', function(handshake, callback) {
+			callback_out(handshake, callback);
+		});
+	},
+	/* 
+	 * parse cookie to session for using in socket.io
+	*/
 	parseSession: function(handshake, callback){
 		var _self = this;
 		this.parseCookie(handshake, null, function(err) {
@@ -116,18 +191,37 @@ module.exports = {
 			});	
 		});
 	},
+	/*
+	 * getModel method for require one model from application and using it.
+	 */
 	getModel: function(app, collection){
-		var tmp = require(this['root_path'] + "/app/"+app+"/models/"+collection+".js");
+		var list_auth_default = ['auth_groups', 'auth_membership', 'auth_menu_action', 'auth_menu_categories', 'auth_permissions', 'auth_users'];
+		var tmp;
+		try{
+			tmp = require(this['root_path'] + "/app/"+app+"/models/"+collection+".js");
+		}
+		catch(e){
+			if(list_auth_default.indexOf(collection) != -1) tmp = require(__dirname + "/models/"+collection+".js");
+			else throw e;
+		}
 		return new tmp();
 	},
+	/*
+	 * manager params from url to do call controller, action from application
+	 */
 	run: function(req, res){
 		var params = this.filterParams(req.url.split("?")[0].split("/"));
 		req.params = {};
 		req.params.application = params[0];
-		if(!req.params.application) req.params.application = this['configs'].defaultApp?this['configs'].defaultApp:"demo";
-		if(req.params.application){
+		if(!req.params.application) req.params.application = this['configs'].defaultApp?this['configs'].defaultApp:null;
+		if(!req.params.application) {
+			return Log.error("Error", "Missing default application from configs", "red");
+		}
+		else{
 			var debug = false;
 			try{
+
+				//if not unquie application from params url, it will call from application default configed.
 				try{
 					var confs = require(this['root_path']+"/app/"+req.params.application+"/init.js");
 					debug = confs.debug?confs.debug:false;
@@ -158,6 +252,9 @@ module.exports = {
 			}
 		}
 	},
+	/*
+	 * filter params url and splice space empty
+	 */
 	filterParams: function(params){
 		while(params.indexOf(undefined) != -1 || params.indexOf("") != -1){
 			var tmpNull = params.indexOf(undefined);
