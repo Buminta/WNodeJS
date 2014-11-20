@@ -81,6 +81,7 @@ module.exports = {
 
 		var _self = this;
 		var express = require("express");
+		var expressValidator = require('express-validator')
 		var fs = require('fs');
 
 		this.KEY = this['configs'].sercurity.key?this['configs'].sercurity.key:'express.sid';
@@ -96,6 +97,7 @@ module.exports = {
 		ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 		this.include(__dirname+'/class.js');
+		this.include(__dirname+'/socket.js');
 		this.include(__dirname+'/view.js');
 		this.include(__dirname+'/error.js');
 		this.include(__dirname+'/auth.js');
@@ -103,7 +105,26 @@ module.exports = {
 		this.include(__dirname+'/model.js');
 
 		// app.use(express.static(__dirname + '/public'));
-		app.use(express.bodyParser());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+		app.use(express.bodyParser());       
+		app.use(expressValidator({
+		  errorFormatter: function(param, msg, value) {
+		    var namespace = param.split('.')
+		      , root    = namespace.shift()
+		      , formParam = root;
+
+		    while(namespace.length) {
+		      formParam += '[' + namespace.shift() + ']';
+		    }
+		    return {
+		      param : formParam,
+		      message   : msg,
+		      value : value
+		    };
+		  },
+		  customValidators: {
+		  }
+		}));
+
 		app.configure(function () {
 			app.use(express.cookieParser());
 			app.use(express.session({store: _self.store, secret: _self.SECRET, key: _self.KEY}));
@@ -138,12 +159,9 @@ module.exports = {
 		}
 		if(this['configs'].socket_path){
 			// check configs socket file path to include it and using when socket.io connect form client
-			this.io.sockets.on('connection', function (socket) {
-				var hs = socket.handshake;
-				_self.parseSession(hs, function(session){
-					_self.include(_self['root_path']+_self['configs'].socket_path, {socket: socket, session: session});
-				});
-			});
+			var SocketClass = require(_self['root_path']+_self['configs'].socket_path);
+			var socketIOListener = new SocketClass(this);
+			socketIOListener.run(this.io.sockets);
 		}
 	},
 	/*

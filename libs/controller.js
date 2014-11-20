@@ -13,6 +13,9 @@
  */
 var router = require(__dirname + '/router');
 Controller = Class.extend({
+	validation: {
+
+	},
 	init: function(req, res){
 		this.res = res;
 		this.req = req;
