@@ -23,7 +23,7 @@ ErrorInterface = Class.extend({
 	 * render default response header with http code 200, success and show message.
 	 */
 	renderError: function(code, mes){
-		return this.render("error", {code: code, mes: mes?mes:this.errorlist.http_request[code]});
+		return this.render("error", {code: code, mes: mes?mes:errorlist.http_request[code]});
 	},
 	/*
 	 * render response header with http code custom and show message.
@@ -34,7 +34,7 @@ ErrorInterface = Class.extend({
 			responseType = this.req.params.action.split(".")[1];
 		}
 		if(responseType && responseType.toLowerCase() == "json"){
-			var error = {code: code, message: (mes?mes:this.errorlist.http_request[code])};
+			var error = {code: code, message: (mes?mes:errorlist.http_request[code])};
 			return this.res.send(code, error);
 		}
 		if(responseType && responseType.toLowerCase() == "xml"){
@@ -42,13 +42,13 @@ ErrorInterface = Class.extend({
 				'?xml version="1.0" encoding="utf-8"?': null,
 				result: {
 					code: code,
-					message: (mes?mes:this.errorlist.http_request[code])
+					message: (mes?mes:errorlist.http_request[code])
 				}
 			};
 			var xml = require("object-to-xml");
 			this.res.set('Content-Type', 'text/xml');
 			return this.res.send(code, xml(error));
 		}
-		return this.res.send(code, "<h1 align='center'>"+code+"</h1><h5 align='center'>"+(mes?mes:this.errorlist.http_request[code])+"</h5>");
+		return this.res.send(code, "<h1 align='center'>"+code+"</h1><h5 align='center'>"+(mes?mes:errorlist.http_request[code])+"</h5>");
 	},
 }).implement(ViewInterface);
