@@ -1,7 +1,7 @@
 {
   "name": "wnodejs",
   "description": "MVC Framework for NodeJS",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": {
     "name": "Tan Bui",
     "url": "http://buminta.com"
