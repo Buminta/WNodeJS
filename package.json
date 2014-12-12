@@ -1,7 +1,7 @@
 {
   "name": "wnodejs",
   "description": "MVC Framework for NodeJS",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "author": {
     "name": "Tan Bui",
     "url": "http://buminta.com"
@@ -20,7 +20,8 @@
     "multiparty": "latest",
     "object-to-xml": "latest",
     "colors": "latest",
-    "express-validator": "latest"
+    "express-validator": "latest",
+    "domain": "latest"
   },
   "engines": {
     "node": "0.10.x",

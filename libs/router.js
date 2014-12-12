@@ -14,6 +14,7 @@
  * Router listener port of application for socket.io and read configs params for listen connect with client
  */
 var Log  = require(__dirname+"/utils/log");
+var d = require('domain').create();
 
 module.exports = {
 	// configs: {
@@ -148,7 +149,18 @@ module.exports = {
 		}
 
 		app.use(function(req,res,next){
-			_self.run(req, res);
+			d.on('error', function(er) {
+				Log.show("Error: "+er.message, 'red')
+				res.send(404, "<h1 align='center'>404</h1><h5 align='center'>Sorry, we cannot find that!</h5>");
+			});
+			d.run(function() {
+				var configs = require(__dirname+"/configs.js");
+				wnodejs = require("wnodejs");
+			  	wnodejs.use("root_path", __dirname);
+			  	wnodejs.use("configs", configs);
+				global.people_online = 0;
+				wnodejs.init();
+			});
 		});
 
 		try{
