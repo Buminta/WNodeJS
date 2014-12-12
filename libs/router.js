@@ -149,7 +149,6 @@ module.exports = {
 		}
 
 		app.use(function(req,res,next){
-			var _self = this;
 			d.on('error', function(er) {
 				Log.show("Error: "+er.message, 'red')
 				res.send(404, "<h1 align='center'>404</h1><h5 align='center'>Sorry, we cannot find that!</h5>");
